@@ -1,0 +1,8 @@
+this is a simple program that implements the random ballistic deposition.
+
+change to the src/cpp/ folder and type 
+	make
+and then
+	./main
+to use the programm. all parameters are hardcoded.
+
