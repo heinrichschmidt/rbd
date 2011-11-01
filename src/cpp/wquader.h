@@ -6,9 +6,10 @@
 
 
 
-class saeule{
+class ssaeule{
 	public:
-		saeule();
+		ssaeule();
+		~ssaeule();
 		class sphere geteintrag(int i);
 		void addeintrag(class sphere kugel);
 		double dropsphere(class sphere kugel);
@@ -22,21 +23,39 @@ class saeule{
 	
 };
 
-
-class quader{
+class subcubic{
 	public:
-		quader(int x, int y);
-		~quader();
+		subcubic();
+		~subcubic();
+		class sphere getentry(int i);
+		int get_quantity();
+		bool collisiondetect(class sphere kugel);
+		void putsphere(class sphere kugel);
+	protected:
+		void addentry(class sphere kugel);
+		std::vector<class sphere> Zahlen;
+		int quantity;
+};
+
+
+class wquader{
+	public:
+		wquader(int x, int y, int z);
+		~wquader();
 		double dropsphere(class sphere kugel);
+		int putsphere(class sphere kugel);
 		double get_volume();
 		int get_quantity();
 	protected:
-		class saeule ** saeulen;
+		class ssaeule ** saeulen;
+		class subcubic *** cubics;
 		int xmax;
 		int ymax;
 		int zmax;
 		int quantity;
-		double z;
+		int min(int a, int b);
+		int max(int a, int b);
+//		double z;
 };
 
 

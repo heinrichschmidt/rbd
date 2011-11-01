@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "quader.h"
 
+
 struct myclass {
 	  bool operator() (class sphere i,class sphere j) { return (i.z<j.z);}
 } myobject;
@@ -19,7 +20,7 @@ saeule::saeule(){
 	anzahl = 0;	
 	std::vector<class sphere> Zahlen(0);
 //	printf("bla\n");
-	Zahlen.reserve(100000);
+	Zahlen.reserve(10000);
 //	Zahlen.resize(100000);
 //	printf("bli\n");
 //	std::set<class sphere> sphereset(0);
@@ -34,10 +35,10 @@ void saeule::addeintrag(class sphere kugel){
 	anzahl++;
 //	std::vector<class sphere> Zahlen(0);
 	//std::vector<class sphere>* Zahlen();
-	if((anzahl%100000)==1)
+	if((anzahl%10000)==1)
 	{
-		Zahlen.reserve(anzahl+100000);
-		Zahlen.resize(anzahl+100000);
+		Zahlen.reserve(anzahl+10000);
+		Zahlen.resize(anzahl+10000);
 //		fprintf(stderr,"si: %d\tca: %d\n",Zahlen.size(),Zahlen.capacity());
 	}
 //	Zahlen.resize(anzahl+100000);
@@ -136,7 +137,9 @@ double quader::dropsphere(class sphere kugel){
 		saeulen[x][y-1].addeintrag(kugel);
 	if(y < (ymax-1))
 		saeulen[x][y+1].addeintrag(kugel);
-
+	quantity++;
+	if(z<kugel.z)
+		z = kugel.z;
 	return kugel.z;
 }
 
@@ -144,6 +147,8 @@ quader::quader(int x, int y)
 {
 	xmax = x;
 	ymax = y;
+	zmax = -1;
+	quantity = 0;
 	 saeulen = new saeule* [xmax];
 	 int i;
 	 for(i=0;i<xmax;i++)
@@ -158,3 +163,15 @@ quader::~quader(){
 
 	delete saeulen;
 }
+
+
+double quader::get_volume()
+{
+	return (xmax*ymax*z);
+}
+
+int quader::get_quantity()
+{
+	return quantity;
+}
+

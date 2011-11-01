@@ -5,14 +5,20 @@
 #include <stdlib.h>
 
 #include "sphere.h"
-#include "quader.h"
+#include "wquader.h"
 
 
 //using namespace std;
 
+double frand(void)
+{
+	return (rand()%1000000)/1000000.0;
+}
+
+
 int main(int argc, const char *argv[])
 {
-	int nmax = 1000000;
+	int nmax = 100000000;
 
 
 //	class sphere kugel(1,2,3,0.5);
@@ -23,7 +29,7 @@ int main(int argc, const char *argv[])
 //	test.dropsphere(k3);
 //	double bla;
 //	k3.z = test.collisiondetect(k3);
-//	printf("z:%f\n",bla);
+//	fprintf(stderr,"z\n");
 //	k3.show();
 	class sphere k2;
 	k2.r=0.5;
@@ -33,20 +39,27 @@ int main(int argc, const char *argv[])
 	/* initialize random seed */
 	srand ( time(NULL) );
 
-
-	class quader test(10,10);
+	int yborder = 10;
+	int xborder = 10;
+	int zborder = 10;
+	class wquader test(xborder, yborder, zborder);
 	int i;
 	for(i=0;i<nmax;i++)
 	{
 //		printf("%d\n",i);
-		k2.x = (rand()%10000)/1000.1;
-		k2.y = (rand()%10000)/1000.1;
-//		printf("bli\n");
-		k2.z = test.dropsphere(k2);
-//		printf("blo\n");
-		k2.show();
+		k2.x = (frand()*(xborder-1)+0.5);
+		k2.y = (frand()*(yborder-1)+0.5);
+		k2.z = (frand()*(zborder-1)+0.5);
+//		k2.x = ( (rand()%100000)/10000 * 3.9 + 1 );
+//		k2.y = ( (rand()%100000)/10000 * 3.9 + 1 );
+//		fprintf(stderr,"bli (%f, %f, %f)\n",k2.x,k2.y,k2.z);
+		if(test.putsphere(k2)>0)
+			k2.show();
 	}
-
+	double volumen = test.get_volume();
+	double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
+	double filling = vkugeln/volumen;
+	fprintf(stderr,"füllfaktor: %f\n",filling);
 //	printf("x:%f\n",k2.x);
 //	printf("y:%f\n",k2.y);
 //	printf("z:%f\n",k2.z);
