@@ -12,13 +12,17 @@
 
 double frand(void)
 {
-	return (rand()%1000000)/1000000.0;
+	return (rand()/RAND_MAX);
 }
 
 
 int main(int argc, const char *argv[])
-{
-	int nmax = 100000000;
+{	
+	long nmax = 1000000000;
+	double fillf = 0.15;
+	if(argc>1)
+		fillf = atof(argv[1]);
+
 
 
 //	class sphere kugel(1,2,3,0.5);
@@ -43,8 +47,11 @@ int main(int argc, const char *argv[])
 	int xborder = 10;
 	int zborder = 10;
 	class wquader test(xborder, yborder, zborder);
-	int i;
-	for(i=0;i<nmax;i++)
+	long i;
+//	for(i=0;i<nmax;i++)
+	double volumen = test.get_volume();
+	double ff = 0;
+	while(ff<fillf)
 	{
 //		printf("%d\n",i);
 		k2.x = (frand()*(xborder-1)+0.5);
@@ -53,13 +60,13 @@ int main(int argc, const char *argv[])
 //		k2.x = ( (rand()%100000)/10000 * 3.9 + 1 );
 //		k2.y = ( (rand()%100000)/10000 * 3.9 + 1 );
 //		fprintf(stderr,"bli (%f, %f, %f)\n",k2.x,k2.y,k2.z);
-		if(test.putsphere(k2)>0)
+		if(test.putsphere(k2)>0){
 			k2.show();
+			double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
+			ff = vkugeln/volumen;
+		}
 	}
-	double volumen = test.get_volume();
-	double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
-	double filling = vkugeln/volumen;
-	fprintf(stderr,"füllfaktor: %f\n",filling);
+	fprintf(stderr,"füllfaktor: %f\n",ff);
 //	printf("x:%f\n",k2.x);
 //	printf("y:%f\n",k2.y);
 //	printf("z:%f\n",k2.z);
