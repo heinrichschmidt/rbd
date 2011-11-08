@@ -19,7 +19,7 @@ double frand(void)
 int main(int argc, const char *argv[])
 {	
 	long nmax = 1000000000;
-	double fillf = 0.15;
+	double fillf = 0.14;
 	if(argc>1)
 		fillf = atof(argv[1]);
 
@@ -43,9 +43,9 @@ int main(int argc, const char *argv[])
 	/* initialize random seed */
 	srand ( time(NULL) );
 
-	int yborder = 10;
-	int xborder = 10;
-	int zborder = 10;
+	int yborder = 20;
+	int xborder = 20;
+	int zborder = 20;
 	class wquader test(xborder, yborder, zborder);
 	long i;
 //	for(i=0;i<nmax;i++)
