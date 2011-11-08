@@ -18,8 +18,8 @@ double frand(void)
 char *helptext ="\
 -h         this helptext.\n\
 -f number  desired filling factor\n\
-\n\
-\
+-s         use random sequential packing\n\
+-b         use random-ballistic-deposition\n\
 \
 \
 ";
@@ -86,8 +86,45 @@ int main(int argc, const char *argv[])
 //	k3.z = test.collisiondetect(k3);
 //	fprintf(stderr,"z\n");
 //	k3.show();
+	if(randomBallisticDeposition)
+	{
+		int nmax = 1000000;
 
-	if(randomSequentialPacking)
+
+		//1000000class sphere kugel(1,2,3,0.5);
+		//kugelclass sphere k3(1,2.5,4,0.5);
+		//k3class saeule test;
+		//
+		//testtest.dropsphere(kugel);
+		//kugeltest.dropsphere(k3);
+		//k3double bla;
+		//blak3.z = test.collisiondetect(k3);
+		//k3printf("z:%f\n",bla);
+		//blak3.show();
+		class sphere k2;
+		k2.r=0.5;
+		//
+		//k2k2 = test.geteintrag(0);
+
+		/* initialize random seed */
+		srand ( time(NULL) );
+
+
+		class squader test(10,10);
+		int i;
+		for(i=0;i<nmax;i++)
+		{
+			//nmaxprintf("%d\n",i);
+			k2.x = (rand()%10000)/1000.1;
+			k2.y = (rand()%10000)/1000.1;
+			//1000printf("bli\n");
+			k2.z = test.dropsphere(k2);
+			//k2printf("blo\n");
+			k2.show();
+		}
+
+	}
+	else if(randomSequentialPacking)
 	{
 
 		class sphere k2;
