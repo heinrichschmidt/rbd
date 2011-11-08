@@ -1,4 +1,5 @@
 #include "sphere.h"
+#include <cmath>
 #include <stdio.h>
 //bool sphere::operator<(
 sphere::sphere(double x1, double y1, double z1, double r1){
@@ -20,3 +21,7 @@ int sphere::show(){
 	return 0;
 }
 
+double sphere::distance_xy(class sphere k2)
+{
+	return sqrt(pow((x - k2.x),2) + pow((y - k2.y),2));
+}

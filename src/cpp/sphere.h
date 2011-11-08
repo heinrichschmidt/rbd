@@ -13,6 +13,7 @@ class sphere{
 		bool operator<(class sphere b){
 			return (z < b.z);
 		}
+		double distance_xy(class sphere k2);
 };
 
 

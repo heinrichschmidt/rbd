@@ -9,7 +9,7 @@
 
 #include <cmath>
 #include <stdio.h>
-#include "wquader.h"
+#include "quader.h"
 
 
 struct myclass {
@@ -85,7 +85,7 @@ class sphere ssaeule::geteintrag(int i){
 	return Zahlen.at(i);
 }
 
-double distance_xy(class sphere k1, class sphere k2)
+double wdistance_xy(class sphere k1, class sphere k2)
 {
 	return sqrt(pow((k1.x - k2.x),2) + pow((k1.y - k2.y),2));
 }
@@ -99,7 +99,7 @@ double ssaeule::collisiondetect(class sphere kugel){
 	{
 		tmp = Zahlen.at(i);
 //		printf("for %d: %f %f\n",i,tmp.x,tmp.y);
-		if(distance_xy(tmp,kugel)<(tmp.r+kugel.r)){
+		if(wdistance_xy(tmp,kugel)<(tmp.r+kugel.r)){
 //			printf("bla\n");
 			zz = sqrt( pow(kugel.r+tmp.r,2) - pow(kugel.x-tmp.x,2) - pow(kugel.y-tmp.y,2)) + tmp.z;
 			i=0;
@@ -204,7 +204,10 @@ double subcubic::collisiondetect(class sphere kugel){
 
 
 class sphere subcubic::getentry(int i){
+	class sphere bla(1,2,3,4);
+	return bla;
 }
+
 int subcubic::get_quantity(){
 	return quantity;
 }
@@ -218,7 +221,7 @@ bool subcubic::collisiondetect(class sphere kugel){
 	{
 		tmp = Zahlen.at(i);
 //		printf("for %d: %f %f\n",i,tmp.x,tmp.y);
-		if(distance_xy(tmp,kugel)<(tmp.r+kugel.r)){
+		if(wdistance_xy(tmp,kugel)<(tmp.r+kugel.r)){
 //			printf("bla\n");
 			return true;
 		}
@@ -340,18 +343,18 @@ wquader::wquader(int x, int y, int z)
 	zmax = z;
 	quantity = 0;
 //	printf("ble\n");
-	saeulen = new ssaeule* [xmax];
+	saeulen = new ssaeule* [int(xmax+0.5)];
 	int i,j;
 	for(i=0;i<xmax;i++)
-		saeulen[i] = new ssaeule[ymax];
+		saeulen[i] = new ssaeule[int(ymax+0.5)];
 
 //	printf("blu\n");
-	cubics = new subcubic** [xmax];
+	cubics = new subcubic** [int(xmax+0.5)];
 	for(i=0;i<xmax;i++)
 	{
-		cubics[i] = new subcubic * [ymax];
+		cubics[i] = new subcubic * [int(ymax+0.5)];
 		for(j=0;j<ymax;j++)
-			cubics[i][j] = new subcubic [zmax];
+			cubics[i][j] = new subcubic [int(zmax+0.5)];
 	}
 
 //	printf("bla\n");
@@ -366,7 +369,7 @@ wquader::~wquader(){
 
 	for(i=0;i<xmax;i++)
 	{
-		cubics[i] = new subcubic * [ymax];
+		cubics[i] = new subcubic * [int(ymax+0.5)];
 		for(j=0;j<ymax;j++)
 			delete cubics [i][j];
 		delete cubics[i];
@@ -375,15 +378,15 @@ wquader::~wquader(){
 }
 
 
-double wquader::get_volume()
-{
-	return (xmax*ymax*zmax);
-}
-
-int wquader::get_quantity()
-{
-	return quantity;
-}
+//double wquader::get_volume()
+//{
+//	return (xmax*ymax*zmax);
+//}
+//
+//int wquader::get_quantity()
+//{
+//	return quantity;
+//}
 
 
 

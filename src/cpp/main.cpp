@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #include "sphere.h"
-#include "wquader.h"
+#include "quader.h"
 
 
 //using namespace std;
