@@ -13,6 +13,7 @@
 class saeule{
 	public:
 		saeule();
+		~saeule();
 		class sphere geteintrag(int i);
 		void addeintrag(class sphere kugel);
 		double dropsphere(class sphere kugel);

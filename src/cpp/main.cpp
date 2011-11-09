@@ -15,13 +15,12 @@ double frand(void)
 	return (rand()/RAND_MAX);
 }
 
-char *helptext ="\
+char helptext[] ="\
 -h         this helptext.\n\
 -f number  desired filling factor\n\
+-n number  number of desired spheres\n\
 -s         use random sequential packing\n\
 -b         use random-ballistic-deposition\n\
-\
-\
 ";
 
 
@@ -48,16 +47,16 @@ int main(int argc, const char *argv[])
 
 				case '-':   
 
-				case 'a':
-//					a_value = atoi(argv[++i]);
+				case 'n':
+					nmax = atoi(argv[++i]);
 					break;
 
 				case 'b':
-//					b_value = atof(argv[++i]);
 					randomBallisticDeposition = true;
 					break;
 
-				case 'c':
+				case 'f':
+					fillf = atof(argv[++i]);
 //					c_value = argv[++i];
 					break;
 				case 's':
@@ -120,8 +119,13 @@ int main(int argc, const char *argv[])
 			//1000printf("bli\n");
 			k2.z = test.dropsphere(k2);
 			//k2printf("blo\n");
-			k2.show();
+			if(k2.z>0)
+				k2.show();
 		}
+		double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
+		double volumen = test.get_volume();
+		double ff = vkugeln/volumen;
+		fprintf(stderr,"füllfaktor: %f\n",ff);
 
 	}
 	else if(randomSequentialPacking)
@@ -133,9 +137,9 @@ int main(int argc, const char *argv[])
 		/* initialize random seed */
 		srand ( time(NULL) );
 
-		int yborder = 20;
-		int xborder = 20;
-		int zborder = 20;
+		int yborder = 10;
+		int xborder = 10;
+		int zborder = 10;
 		class wquader test(xborder, yborder, zborder);
 		
 		double volumen = test.get_volume();

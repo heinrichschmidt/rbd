@@ -363,7 +363,7 @@ wquader::wquader(int x, int y, int z)
 wquader::~wquader(){
 	int i,j;
 	for(i=0;i<xmax;i++)
-		delete saeulen[i];
+		delete[] saeulen[i];
 	
 	delete saeulen;
 
@@ -371,8 +371,8 @@ wquader::~wquader(){
 	{
 		cubics[i] = new subcubic * [int(ymax+0.5)];
 		for(j=0;j<ymax;j++)
-			delete cubics [i][j];
-		delete cubics[i];
+			delete[] cubics [i][j];
+		delete[] cubics[i];
 	}
 	delete cubics;
 }

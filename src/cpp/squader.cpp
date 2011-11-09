@@ -24,12 +24,22 @@ saeule::saeule(){
 //	Zahlen.resize(100000);
 //	printf("bli\n");
 //	std::set<class sphere> sphereset(0);
+	
+}
+
+saeule::~saeule(){
+	Zahlen.reserve(0);
+//	delete Zahlen;
 }
 
 int saeule::getanzahl(){
 	return anzahl;
 }
 
+
+/*
+	routine to add an sphere to the „stack“
+*/
 void saeule::addeintrag(class sphere kugel){
 //	std::vector<class sphere>& Zahlen = new std::vector<class sphere> ;
 	anzahl++;
@@ -63,6 +73,7 @@ void saeule::addeintrag(class sphere kugel){
 double saeule::dropsphere(class sphere kugel){
 //	printf("bla\n");
 	kugel.z = collisiondetect(kugel);
+//	zmax = kugel.z;
 //	printf("bla%f\n",kugel.z);
 	if(kugel.z<kugel.r)
 		kugel.z = kugel.r;
@@ -115,31 +126,47 @@ double squader::dropsphere(class sphere kugel){
 		return -1;
 	if((kugel.x<0)or(kugel.y<0))
 		return -1;
-	int x = int(kugel.x);
-	int y = int(kugel.y);
 	kugel.z = saeulen[int(kugel.x)][int(kugel.y)].dropsphere(kugel);
-//	printf("bli\n");
-	if(x > 0){
-		saeulen[x-1][y].addeintrag(kugel);
-		if(y > 0)
-			saeulen[x-1][y-1].addeintrag(kugel);
-		if(y < (ymax-1))
-			saeulen[x-1][y+1].addeintrag(kugel);
+	if(kugel.z > zmax)
+		return -1;
+	int x = int(kugel.x-kugel.r);
+	int y = int(kugel.y-kugel.r);
+	int xm= int(kugel.x+kugel.r);
+	int ym = int(kugel.y+kugel.r);
+	x = (x<0) ? 0 : x;
+	y = (y<0) ? 0 : y;
+	xm = (xm > xmax) ? int(xmax) : xm;
+	ym = (ym > ymax) ? int(ymax) : ym;
+	for(;x<xm;x++)
+	{
+		for(;y<ym;y++)
+		{
+			saeulen[x][y].addeintrag(kugel);
+		}
 	}
-	if(x < (xmax-1)){
-		saeulen[x+1][y].addeintrag(kugel);
-		if(y > 0)
-			saeulen[x+1][y-1].addeintrag(kugel);
-		if(y < (ymax-1))
-			saeulen[x+1][y+1].addeintrag(kugel);
-	}
-	if(y > 0)
-		saeulen[x][y-1].addeintrag(kugel);
-	if(y < (ymax-1))
-		saeulen[x][y+1].addeintrag(kugel);
+//	printf("bli\n");i
+//	if(x > 0){
+//		saeulen[x-1][y].addeintrag(kugel);
+//		if(y > 0)
+//			saeulen[x-1][y-1].addeintrag(kugel);
+//		if(y < (ymax-1))
+//			saeulen[x-1][y+1].addeintrag(kugel);
+//	}
+//	if(x < (xmax-1)){
+//		saeulen[x+1][y].addeintrag(kugel);
+//		if(y > 0)
+//			saeulen[x+1][y-1].addeintrag(kugel);
+//		if(y < (ymax-1))
+//			saeulen[x+1][y+1].addeintrag(kugel);
+//	}
+//	if(y > 0)
+//		saeulen[x][y-1].addeintrag(kugel);
+//	if(y < (ymax-1))
+//		saeulen[x][y+1].addeintrag(kugel);
 	quantity++;
 	if(z<kugel.z)
 		z = kugel.z;
+		zmax = z;
 	return kugel.z;
 }
 
@@ -148,19 +175,21 @@ squader::squader(int x, int y)
 	xmax = x;
 	ymax = y;
 	zmax = -1;
+	zmax = 20;
 	quantity = 0;
-	 saeulen = new saeule* [int(xmax+0.5)];
+	 saeulen = new saeule* [int(xmax+1)];
 	 int i;
 	 for(i=0;i<xmax;i++)
-		 saeulen[i] = new saeule[int(ymax+0.5)];
+		 saeulen[i] = new saeule[int(ymax+1)];
 //	printf("bla\n");
 }
 
 squader::~squader(){
 	int i;
-	for(i=0;i<xmax;i++)
-		delete saeulen[i];
-
+	for(i=0;i<=xmax;i++)
+	{
+		delete[] saeulen[i];
+	}
 	delete saeulen;
 }
 
