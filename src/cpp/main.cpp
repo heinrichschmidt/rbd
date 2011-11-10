@@ -109,8 +109,8 @@ int main(int argc, const char *argv[])
 		/* initialize random seed */
 		srand ( time(NULL) );
 
-		double xmax = 20;
-		double ymax = 20;
+		double xmax = 10;
+		double ymax = 10;
 		class squader test(xmax,ymax);
 		int i;
 		for(i=0;i<nmax;i++)
