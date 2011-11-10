@@ -29,6 +29,7 @@ class quader{
 		~quader();
 		double dropsphere(class sphere kugel);
 		double get_volume();
+		double get_fillfactor();
 		int get_quantity();
 	protected:
 		class saeule ** saeulen;
@@ -36,6 +37,7 @@ class quader{
 		int ymax;
 		int zmax;
 		int quantity;
+		double filled_volume;
 		double z;
 };
 

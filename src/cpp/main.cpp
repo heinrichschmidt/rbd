@@ -12,7 +12,7 @@
 
 double frand(void)
 {
-	return (rand()/RAND_MAX);
+	return (double(rand())/RAND_MAX);
 }
 
 char helptext[] ="\
@@ -49,6 +49,7 @@ int main(int argc, const char *argv[])
 
 				case 'n':
 					nmax = atoi(argv[++i]);
+//					printf();
 					break;
 
 				case 'b':
@@ -87,7 +88,7 @@ int main(int argc, const char *argv[])
 //	k3.show();
 	if(randomBallisticDeposition)
 	{
-		int nmax = 1000000;
+//		int nmax = 1000000;
 
 
 		//1000000class sphere kugel(1,2,3,0.5);
@@ -108,23 +109,26 @@ int main(int argc, const char *argv[])
 		/* initialize random seed */
 		srand ( time(NULL) );
 
-
-		class squader test(10,10);
+		double xmax = 20;
+		double ymax = 20;
+		class squader test(xmax,ymax);
 		int i;
 		for(i=0;i<nmax;i++)
 		{
 			//nmaxprintf("%d\n",i);
-			k2.x = (rand()%10000)/1000.1;
-			k2.y = (rand()%10000)/1000.1;
+//			k2.r = ((rand()%4)==0) ? 1.5 : 0.5;
+			k2.x = frand()*(xmax - 2 * k2.r)+k2.r;
+			k2.y = frand()*(ymax - 2 * k2.r)+k2.r;
 			//1000printf("bli\n");
+			
 			k2.z = test.dropsphere(k2);
-			//k2printf("blo\n");
+//			printf("blo %f\n",k2.z);
 			if(k2.z>0)
 				k2.show();
 		}
 		double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
 		double volumen = test.get_volume();
-		double ff = vkugeln/volumen;
+		double ff = test.get_fillfactor();
 		fprintf(stderr,"füllfaktor: %f\n",ff);
 
 	}

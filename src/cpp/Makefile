@@ -1,5 +1,5 @@
-#CPP     = g++
-CPP	= clang++
+CPP     = g++
+#CPP	= clang++
 
 all: main
 

@@ -11,7 +11,7 @@ class sphere{
 		sphere();
 		int show(void);
 		bool operator<(class sphere b){
-			return (z < b.z);
+			return ((z+r) < (b.z+b.r));
 		}
 		double distance_xy(class sphere k2);
 };

@@ -53,8 +53,10 @@ class squader : public quader{
 		double dropsphere(class sphere kugel);
 //		double get_volume();
 //		int get_quantity();
+		double get_fillfactor();
 	protected:
 		class saeule ** saeulen;
+		double filled_volume;
 //		int xmax;
 //		int ymax;
 //		int zmax;
