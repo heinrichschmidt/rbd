@@ -21,6 +21,9 @@ char helptext[] ="\
 -n number  number of desired spheres\n\
 -s         use random sequential packing\n\
 -b         use random-ballistic-deposition\n\
+-x number  x-boundary\n\
+-y number  y-boundary\n\
+-z number  z-max boundary\n\
 ";
 
 
@@ -31,6 +34,9 @@ int main(int argc, const char *argv[])
 //	if(argc>1)
 //		fillf = atof(argv[1]);
 
+	int yborder = 10;
+	int xborder = 10;
+	int zborder = 10;
 	long i;
 	bool randomBallisticDeposition = false;
 	bool randomSequentialPacking   = false;
@@ -67,7 +73,15 @@ int main(int argc, const char *argv[])
 					printf("%s",helptext);
 					return 1;
 					break;
-
+				case 'x':
+					xborder = atoi(argv[++i]);
+					break;
+				case 'y':
+					yborder = atoi(argv[++i]);
+					break;
+				case 'z':
+					zborder = atoi(argv[++i]);
+					break;
 			}
 		}
 	}
@@ -104,13 +118,15 @@ int main(int argc, const char *argv[])
 		class sphere k2;
 		k2.r=0.5;
 		//
+		
 		//k2k2 = test.geteintrag(0);
 
 		/* initialize random seed */
 		srand ( time(NULL) );
 
-		double xmax = 10;
-		double ymax = 10;
+		double xmax = xborder;
+		double ymax = yborder;
+		printf("%lf,%lf",xmax,ymax);
 		class squader test(xmax,ymax);
 		int i;
 		for(i=0;i<nmax;i++)
@@ -122,7 +138,7 @@ int main(int argc, const char *argv[])
 			//1000printf("bli\n");
 			
 			k2.z = test.dropsphere(k2);
-//			printf("blo %f\n",k2.z);
+			//printf("blo %f\n",k2.z);
 			if(k2.z>0)
 				k2.show();
 		}
@@ -141,9 +157,6 @@ int main(int argc, const char *argv[])
 		/* initialize random seed */
 		srand ( time(NULL) );
 
-		int yborder = 10;
-		int xborder = 10;
-		int zborder = 10;
 		class wquader test(xborder, yborder, zborder);
 		
 		double volumen = test.get_volume();
