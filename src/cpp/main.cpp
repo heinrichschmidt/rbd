@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
-#include <time.h>
+#include <sys/time.h>
 #include <stdlib.h>
-
+#include <math.h>
 #include "sphere.h"
 #include "quader.h"
 
+
+#define SmallToBigRatioDenominator 10000
 
 //using namespace std;
 
@@ -24,7 +26,9 @@ char helptext[] ="\
 -x number  x-boundary\n\
 -y number  y-boundary\n\
 -z number  z-max boundary\n\
-";
+-p number  radius ratio for bidisperse\n\
+-q number  ratio small to big sphere in bidisperse case\n\
+"; /* remaining charakteres: acdegijklmortuvw*/
 
 
 int main(int argc, const char *argv[])
@@ -37,6 +41,8 @@ int main(int argc, const char *argv[])
 	int yborder = 10;
 	int xborder = 10;
 	int zborder = 10;
+	float smallToBigRatio = 0;
+	float radiusRatio = 1;
 	long i;
 	bool randomBallisticDeposition = false;
 	bool randomSequentialPacking   = false;
@@ -82,6 +88,12 @@ int main(int argc, const char *argv[])
 				case 'z':
 					zborder = atoi(argv[++i]);
 					break;
+				case 'p':
+					radiusRatio = atof(argv[++i]);
+					break;
+				case 'q':
+					smallToBigRatio = int(SmallToBigRatioDenominator *atof(argv[++i]));
+					break;				
 			}
 		}
 	}
@@ -122,17 +134,33 @@ int main(int argc, const char *argv[])
 		//k2k2 = test.geteintrag(0);
 
 		/* initialize random seed */
-		srand ( time(NULL) );
+		//srand ( time(NULL) );
+		struct timeval tv;
+		gettimeofday(&tv, 0);
+		srand(tv.tv_usec);
 
 		double xmax = xborder;
 		double ymax = yborder;
 		printf("%lf,%lf",xmax,ymax);
 		class squader test(xmax,ymax);
 		int i;
+
+		/*convert smallToBigRatio to a fraction*/
+//		int numerator, denominator, sumND;
+//		double num;
+//		denominator = int(1/(modf (smallToBigRatio , &num)));
+//		numerator = int(num) * denominator + 1;
+//		sumND = numerator + denominator;
+//		fprintf(stderr,"ratio small to big: %d/%d\n",numerator, denominator);
+
+		int sumND = SmallToBigRatioDenominator+smallToBigRatio;
 		for(i=0;i<nmax;i++)
 		{
 			//nmaxprintf("%d\n",i);
-//			k2.r = ((rand()%4)==0) ? 1.5 : 0.5;
+//			float smallToBigRatio = 0;
+//			float radiusRatio = 1;
+			k2.r = ((rand()%(sumND))<smallToBigRatio) ? (0.5*radiusRatio) : 0.5;
+//			fprintf(stderr,"r: %f\n",k2.r);
 			k2.x = frand()*(xmax - 2 * k2.r)+k2.r;
 			k2.y = frand()*(ymax - 2 * k2.r)+k2.r;
 			//1000printf("bli\n");

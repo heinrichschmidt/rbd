@@ -4,7 +4,7 @@ if(-e $ARGV[0]){
 	open(fhz,">","z.dat");
 	open(fhy,">","y.dat");
 	open(fhx,">","x.dat");
-	for($i=0;$i<100;$i+=1)
+	for($i=0;$i<20;$i+=1)
 	{
 		$tmp = `perl subfillingfactor.pl $ARGV[0] 0 0 1 $i 2 20000`;
 		print fhz "$i\t$tmp";
