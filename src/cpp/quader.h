@@ -49,6 +49,7 @@ class quader{
 class squader : public quader{
 	public:
 		squader(int x, int y);
+		squader(int x, int y, int z);
 		~squader();
 		double dropsphere(class sphere kugel);
 //		double get_volume();

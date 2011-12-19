@@ -201,6 +201,19 @@ squader::squader(int x, int y)
 //	printf("bla\n");
 }
 
+squader::squader(int x, int y, int z)
+{
+	xmax = x;
+	ymax = y;
+	zmax = z;
+	quantity = 0;
+	filled_volume = 0;
+	 saeulen = new saeule* [int(xmax+1)];
+	 int i;
+	 for(i=0;i<=xmax;i++)
+		 saeulen[i] = new saeule[int(ymax+1)];
+//	printf("bla\n");
+}
 squader::~squader(){
 	int i;
 	for(i=0;i<=xmax;i++)

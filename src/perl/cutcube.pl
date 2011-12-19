@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+$stdin=0;
+
 if(-e $ARGV[0]){
 	open(STDIN, "<", $ARGV[0]);
 #	open(fhz,">","z.dat");
@@ -18,15 +20,43 @@ if(-e $ARGV[0]){
 #	close(fhy);
 #	close(fhz);
 #	system("gnuplot ffxyz.gp");
+	
 }else{
-
+	$stdin=1;
 }
+
+$xa = 0;
+$ya = 0;
+$za = 0;
+$xe = 10;
+$ye = 10;
+$ze = 10;
+if(defined $ARGV[1-$stdin])
+{
+	$a = $ARGV[1-$stdin]+0;
+	if(defined $ARGV[2-$stdin])
+	{
+		$xa = $ARGV[2-$stdin]+0;
+		if(defined $ARGV[3-$stdin])
+		{
+			$ya = $ARGV[3-$stdin]+0;
+			if(defined $ARGV[4-$stdin])
+			{
+				$za = $ARGV[4-$stdin]+0;
+			}
+		}
+	}
+	$xe = $xa + $a;
+	$ye = $ya + $a;
+	$ze = $za + $a;
+}
+
 
 until(eof(STDIN))
 {
 	$_ = <>;
 	@xyzr = split/,/;
-	if(($xyzr[0]<75)and($xyzr[0]>25)and($xyzr[1]<75)and($xyzr[1]>25)and($xyzr[2]<75)and($xyzr[2]>25))
+	if(($xyzr[0]<$xe)and($xyzr[0]>$xa)and($xyzr[1]<$ye)and($xyzr[1]>$ya)and($xyzr[2]<$ze)and($xyzr[2]>$za))
 	{
 		print $_;
 	}

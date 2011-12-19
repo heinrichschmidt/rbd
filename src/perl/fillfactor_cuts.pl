@@ -6,7 +6,7 @@ if(-e $ARGV[0]){
 	open(fhx,">","x.dat");
 	for($i=0;$i<20;$i+=1)
 	{
-		$tmp = `perl subfillingfactor.pl $ARGV[0] 0 0 1 $i 2 20000`;
+$		$tmp = `perl subfillingfactor.pl $ARGV[0] 0 0 1 $i 2 20000`;
 		print fhz "$i\t$tmp";
 		$tmp = `perl subfillingfactor.pl $ARGV[0] 0 1 0 $i 2 20000`;
 		print fhy "$i\t$tmp";

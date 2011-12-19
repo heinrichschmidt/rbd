@@ -28,7 +28,22 @@ char helptext[] ="\
 -z number  z-max boundary\n\
 -p number  radius ratio for bidisperse\n\
 -q number  ratio small to big sphere in bidisperse case\n\
-"; /* remaining charakteres: acdegijklmortuvw*/
+-g	   gaussian distribution with sigma=3 or 1/3 and maximum at 1\n\
+-c         cubic distribution with r from 0 to 3.5\n\
+"; /* remaining charakteres: adeijklmortuvw*/
+
+
+double gauss(double x, double sigma)
+{
+//	double x = xx;
+	if(x<=0)
+		return 0;
+	if(x<1)
+		x = 1/x;
+	
+	return ( 1/(sigma*2.506628) ) * exp( -0.5*pow( (x-1)/sigma  ,2) );
+	
+}
 
 
 int main(int argc, const char *argv[])
@@ -46,6 +61,8 @@ int main(int argc, const char *argv[])
 	long i;
 	bool randomBallisticDeposition = false;
 	bool randomSequentialPacking   = false;
+	bool gaussian = false;
+	bool cubicc = false;
 
 	for (i = 1; i < argc; i++) {
 
@@ -74,6 +91,12 @@ int main(int argc, const char *argv[])
 					break;
 				case 's':
 					randomSequentialPacking = true;
+					break;
+				case 'g':
+					gaussian = true;
+					break;
+				case 'c':
+					cubicc = true;
 					break;
 				case 'h':  
 					printf("%s",helptext);
@@ -141,8 +164,8 @@ int main(int argc, const char *argv[])
 
 		double xmax = xborder;
 		double ymax = yborder;
-		printf("%lf,%lf",xmax,ymax);
-		class squader test(xmax,ymax);
+//		fprintf(stderr,"%lf,%lf",xmax,ymax);
+		class squader test(xmax,ymax,zborder);
 		int i;
 
 		/*convert smallToBigRatio to a fraction*/
@@ -159,7 +182,36 @@ int main(int argc, const char *argv[])
 			//nmaxprintf("%d\n",i);
 //			float smallToBigRatio = 0;
 //			float radiusRatio = 1;
-			k2.r = ((rand()%(sumND))<smallToBigRatio) ? (0.5*radiusRatio) : 0.5;
+			if(gaussian)
+			{
+				bool tru = true;
+				double tmpr;
+				while(tru)
+				{
+					tmpr = (rand()%(100000))/10000.0;
+					if(gauss(tmpr,3)>((rand()%10000)/10000.0))
+					{
+						tru = false;
+						k2.r = tmpr;
+					}
+				}
+			}else if(cubicc)
+			{
+				bool tru = true;
+				double tmpr;
+				while(tru)
+				{
+					tmpr = (rand()%(100000))/28571.428;
+					if(( -1/42.0 * pow( tmpr - 3.5 , 3 )  ) > ((rand()%10000) / 10000.0))
+					{
+						tru = false;
+						k2.r = tmpr;
+					}
+				}
+			}else
+			{
+				k2.r = ((rand()%(sumND))<smallToBigRatio) ? (0.5*radiusRatio) : 0.5;
+			}
 //			fprintf(stderr,"r: %f\n",k2.r);
 			k2.x = frand()*(xmax - 2 * k2.r)+k2.r;
 			k2.y = frand()*(ymax - 2 * k2.r)+k2.r;
