@@ -23,11 +23,11 @@ sub adding
 }
 
 print "#size ratio, number of spheres ratio, fillingfactor\n";
-for($sr=0.01;$sr<=1;$sr+=0.01) #for-loop for the size-ratio
+for($sr=0.001;$sr<=1;$sr+=0.001) #for-loop for the size-ratio
 {
-	for($nr=0;$nr<=5;$nr=adding($nr,0.01,100))
+	for($nr=0;$nr<=0.5;$nr+=0.1)
 	{
-		$ff = `./../cpp/main -n 1000000 -b -x 100 -y 100 -z 100 -p $sr -q $nr | ./cutcube.pl| ./fillingfactor.pl`;
+		$ff = `./test/main -n 1000000 -b -x 100 -y 100 -z 100 -p $sr -q $nr | ./cutcube.pl 50 25 25 25 | ./fillingfactor.pl`;
 		print "$sr,$nr,$ff ";
 	}
 }

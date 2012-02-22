@@ -38,6 +38,11 @@ until(eof(STDIN))
 		}
 	}
 }
-$volume =  ($max[0]-$min[0]) * ($max[1]-$min[1]) * ($max[2]-$min[2]); 
-print $ff/($volume)  ."\n";
-
+$volume =  ($max[0]-$min[0]) * ($max[1]-$min[1]) * ($max[2]-$min[2]);
+if($volume == 0)
+{
+	print "0\n";
+}else
+{
+	print $ff/($volume)  ."\n";
+}

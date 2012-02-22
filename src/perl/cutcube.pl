@@ -25,12 +25,12 @@ if(-e $ARGV[0]){
 	$stdin=1;
 }
 
-$xa = 0;
-$ya = 0;
-$za = 0;
-$xe = 10;
-$ye = 10;
-$ze = 10;
+$xa = 20;
+$ya = 20;
+$za = 20;
+$xe = 80;
+$ye = 80;
+$ze = 80;
 if(defined $ARGV[1-$stdin])
 {
 	$a = $ARGV[1-$stdin]+0;
@@ -54,7 +54,7 @@ if(defined $ARGV[1-$stdin])
 
 until(eof(STDIN))
 {
-	$_ = <>;
+	$_ = <STDIN>;
 	@xyzr = split/,/;
 	if(($xyzr[0]<$xe)and($xyzr[0]>$xa)and($xyzr[1]<$ye)and($xyzr[1]>$ya)and($xyzr[2]<$ze)and($xyzr[2]>$za))
 	{

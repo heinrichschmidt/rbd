@@ -189,7 +189,7 @@ int main(int argc, const char *argv[])
 				while(tru)
 				{
 					tmpr = (rand()%(100000))/10000.0;
-					if(gauss(tmpr,3)>((rand()%10000)/10000.0))
+					if(gauss(tmpr,1)>((rand()%10000)/10000.0))
 					{
 						tru = false;
 						k2.r = tmpr;

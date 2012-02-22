@@ -4,13 +4,14 @@ if(-e $ARGV[0]){
 	open(fhz,">","z.dat");
 	open(fhy,">","y.dat");
 	open(fhx,">","x.dat");
-	for($i=0;$i<20;$i+=1)
+	for($i=0;$i<45;$i+=1)
 	{
-$		$tmp = `perl subfillingfactor.pl $ARGV[0] 0 0 1 $i 2 20000`;
+		$tmp2 = $i * 2;
+		$tmp = `perl cutcube.pl $ARGV[0] 10 50 50 $tmp2 | perl fillingfactor.pl`;
 		print fhz "$i\t$tmp";
-		$tmp = `perl subfillingfactor.pl $ARGV[0] 0 1 0 $i 2 20000`;
+		$tmp = `perl cutcube.pl $ARGV[0] 10 50 $tmp2 50 | perl fillingfactor.pl`;
 		print fhy "$i\t$tmp";
-		$tmp = `perl subfillingfactor.pl $ARGV[0] 1 0 0 $i 2 20000`;
+		$tmp = `perl cutcube.pl $ARGV[0] 10 $tmp2 50 50 | perl fillingfactor.pl`;
 		print fhx "$i\t$tmp";
 	}
 	close(fhz);
