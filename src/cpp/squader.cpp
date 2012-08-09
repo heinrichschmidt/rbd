@@ -6,7 +6,8 @@
 saeule::saeule(){
 	anzahl = 0;	
 	std::vector<class sphere> Zahlen(0);
-	Zahlen.reserve(10000);
+	platz = 4;
+	Zahlen.reserve(platz+2);
 }
 
 saeule::~saeule(){
@@ -21,10 +22,11 @@ int saeule::getanzahl(){
 	//routine to add an sphere to the „stack“
 void saeule::addeintrag(class sphere kugel){
 	anzahl++;
-	if((anzahl%10000)==1)
+	if((anzahl>=platz)or(anzahl==1))
 	{
-		Zahlen.reserve(anzahl+10000);
-		Zahlen.resize(anzahl+10000);
+		platz*=platz;
+		Zahlen.reserve(platz+2);
+		Zahlen.resize(platz+2);
 	}
 	Zahlen.at(anzahl-1) = kugel;
 	int i;

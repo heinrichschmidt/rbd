@@ -21,6 +21,7 @@ class saeule{
 		int getanzahl();
 	protected:
 		int anzahl;
+		int platz;
 		std::vector<class sphere> Zahlen;
 		std::set<class sphere> sphereset;
 		class sphere *liste;
@@ -84,6 +85,7 @@ class ssaeule{
 		int getanzahl();
 	protected:
 		int anzahl;
+		int platz;
 		std::vector<class sphere> Zahlen;
 		std::set<class sphere> sphereset;
 		class sphere *liste;
