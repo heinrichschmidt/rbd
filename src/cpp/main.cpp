@@ -29,7 +29,7 @@ char helptext[] ="\
 -p number  radius ratio for bidisperse\n\
 -q number  ratio small to big sphere in bidisperse case\n\
 -g	   gaussian distribution with sigma=3 or 1/3 and maximum at 1\n\
--c         cubic distribution with r from 0 to 3.5\n\
+-c         power law distribution with r from 0 to 3.5\n\
 "; /* remaining charakteres: adeijklmortuvw*/
 
 
@@ -62,7 +62,7 @@ int main(int argc, const char *argv[])
 	bool randomBallisticDeposition = false;
 	bool randomSequentialPacking   = false;
 	bool gaussian = false;
-	bool cubicc = false;
+	bool powerlaw = false;
 
 	for (i = 1; i < argc; i++) {
 
@@ -96,7 +96,7 @@ int main(int argc, const char *argv[])
 					gaussian = true;
 					break;
 				case 'c':
-					cubicc = true;
+					powerlaw = true;
 					break;
 				case 'h':  
 					printf("%s",helptext);
@@ -195,14 +195,17 @@ int main(int argc, const char *argv[])
 						k2.r = tmpr;
 					}
 				}
-			}else if(cubicc)
+			}else if(powerlaw)
 			{
 				bool tru = true;
+				double alpha = 1.89; // paper: comet 81p/wild 2: the size distribution of finer (sub-10 mum) dust collected by the Stardust spacecraft
 				double tmpr;
+				double xmin = 0.1; //scale parameter for power law distribution
 				while(tru)
 				{
 					tmpr = (rand()%(100000))/28571.428;
-					if(( -1/42.0 * pow( tmpr - 3.5 , 3 )  ) > ((rand()%10000) / 10000.0))
+
+					if( ( ( ( alpha - 1 )/( xmin ) * pow( tmpr / xmin, -alpha )  ) > ((rand()%10000) / 10000.0) ) and ( tmpr > xmin ) ) 
 					{
 						tru = false;
 						k2.r = tmpr;

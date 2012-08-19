@@ -28,9 +28,9 @@ if(-e $ARGV[0]){
 $xa = 20;
 $ya = 20;
 $za = 20;
-$xe = 80;
-$ye = 80;
-$ze = 80;
+$xe = 180;
+$ye = 180;
+$ze = 180;
 if(defined $ARGV[1-$stdin])
 {
 	$a = $ARGV[1-$stdin]+0;

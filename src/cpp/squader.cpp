@@ -11,7 +11,8 @@ saeule::saeule(){
 }
 
 saeule::~saeule(){
-	Zahlen.reserve(0);
+	platz = -2;
+	Zahlen.reserve(platz+2);
 }
 
 int saeule::getanzahl(){
@@ -28,13 +29,13 @@ void saeule::addeintrag(class sphere kugel){
 		Zahlen.reserve(platz+2);
 		Zahlen.resize(platz+2);
 	}
-	Zahlen.at(anzahl-1) = kugel;
-	int i;
-	for(i=anzahl-1;((Zahlen[i]<Zahlen[i-1])&&(i>0));i--)
-	{
-		Zahlen[i]=Zahlen[i-1];
-	}
-	Zahlen[i]=kugel;
+//	Zahlen.at(anzahl-1) = kugel;
+//	int i;
+//	for(i=anzahl-1;((Zahlen[i]<Zahlen[i-1])&&(i>0));i--)
+//	{
+//		Zahlen[i]=Zahlen[i-1];
+//	}
+//	Zahlen[i]=kugel;
 }
 
 double saeule::dropsphere(class sphere kugel){
