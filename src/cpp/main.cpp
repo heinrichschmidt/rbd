@@ -75,7 +75,10 @@ int main(int argc, const char *argv[])
 			switch (argv[i][1]) {
 
 				case '-':   
-
+				case 'h':  
+					printf("%s",helptext);
+					return 1;
+					break;
 				case 'n':
 					nmax = atoi(argv[++i]);
 //					printf();
@@ -97,10 +100,6 @@ int main(int argc, const char *argv[])
 					break;
 				case 'c':
 					powerlaw = true;
-					break;
-				case 'h':  
-					printf("%s",helptext);
-					return 1;
 					break;
 				case 'x':
 					xborder = atoi(argv[++i]);
@@ -124,40 +123,15 @@ int main(int argc, const char *argv[])
 		printf("use -h for usage\n");
 		return 1;
 	}
+	
+	printf("x,\ty,\tz,\tr\n");
 
-//	class sphere kugel(1,2,3,0.5);
-//	class sphere k3(1,2.5,4,0.5);
-//	class saeule test;
-//
-//	test.dropsphere(kugel);
-//	test.dropsphere(k3);
-//	double bla;
-//	k3.z = test.collisiondetect(k3);
-//	fprintf(stderr,"z\n");
-//	k3.show();
 	if(randomBallisticDeposition)
 	{
-//		int nmax = 1000000;
-
-
-		//1000000class sphere kugel(1,2,3,0.5);
-		//kugelclass sphere k3(1,2.5,4,0.5);
-		//k3class saeule test;
-		//
-		//testtest.dropsphere(kugel);
-		//kugeltest.dropsphere(k3);
-		//k3double bla;
-		//blak3.z = test.collisiondetect(k3);
-		//k3printf("z:%f\n",bla);
-		//blak3.show();
 		class sphere k2;
 		k2.r=0.5;
-		//
 		
-		//k2k2 = test.geteintrag(0);
-
-		/* initialize random seed */
-		//srand ( time(NULL) );
+		//initialize ranodm seed
 		struct timeval tv;
 		gettimeofday(&tv, 0);
 		srand(tv.tv_usec);
@@ -168,20 +142,10 @@ int main(int argc, const char *argv[])
 		class squader test(xmax,ymax,zborder);
 		int i;
 
-		/*convert smallToBigRatio to a fraction*/
-//		int numerator, denominator, sumND;
-//		double num;
-//		denominator = int(1/(modf (smallToBigRatio , &num)));
-//		numerator = int(num) * denominator + 1;
-//		sumND = numerator + denominator;
-//		fprintf(stderr,"ratio small to big: %d/%d\n",numerator, denominator);
 
 		int sumND = SmallToBigRatioDenominator+smallToBigRatio;
 		for(i=0;i<nmax;i++)
 		{
-			//nmaxprintf("%d\n",i);
-//			float smallToBigRatio = 0;
-//			float radiusRatio = 1;
 			if(gaussian)
 			{
 				bool tru = true;
@@ -215,13 +179,10 @@ int main(int argc, const char *argv[])
 			{
 				k2.r = ((rand()%(sumND))<smallToBigRatio) ? (0.5*radiusRatio) : 0.5;
 			}
-//			fprintf(stderr,"r: %f\n",k2.r);
 			k2.x = frand()*(xmax - 2 * k2.r)+k2.r;
 			k2.y = frand()*(ymax - 2 * k2.r)+k2.r;
-			//1000printf("bli\n");
 			
 			k2.z = test.dropsphere(k2);
-			//printf("blo %f\n",k2.z);
 			if(k2.z>0)
 				k2.show();
 		}
@@ -259,26 +220,10 @@ int main(int argc, const char *argv[])
 				ff = vkugeln/volumen;
 			}
 		}
-		fprintf(stderr,"füllfaktor: %f\n",ff);
+		fprintf(stderr,"fillingfactor: %f\n",ff);
 	}
 
 
-//	int MaxVec = 5;
-//	vector<int> Zahlen(MaxVec);
-//
-//
-//	cout << Zahlen.size() << " - " << Zahlen.capacity() << endl;
-//	Zahlen[MaxVec+1] = 12; // Wird nicht aufgenommen
-//	Zahlen.at(MaxVec+1) = 12; // Wird geprüft
-//	Zahlen.reserve(20);  // Kapazität ist nun 20
-//	cout << Zahlen.size() << " - " << Zahlen.capacity() << endl;
-//	for(int i=0; i<MaxVec; i++)
-//	{
-//		Zahlen[i] = i;
-//	}
-//	Zahlen.resize(MaxVec+3); // Hier wird die Größe erhöht
-//	Zahlen[MaxVec+1] =12; // Nun passt es
-//	cout << Zahlen.size() << " - " << Zahlen.capacity() << endl;
 
 	return 0;
 }
