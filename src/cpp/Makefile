@@ -3,8 +3,8 @@ CPP     = g++
 
 all: main
 
-main: main.cpp sphere.cpp wquader.cpp quader.cpp squader.cpp
-	$(CPP) -g -o main main.cpp  sphere.cpp wquader.cpp squader.cpp quader.cpp
+main: main.cpp Sphere.cpp Wquader.cpp Quader.cpp Squader.cpp
+	$(CPP) -g -o main main.cpp  Sphere.cpp Wquader.cpp Squader.cpp Quader.cpp
 
 clean:
 	rm main

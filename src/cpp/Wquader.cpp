@@ -1,44 +1,44 @@
-//class sphere geteintrag(int i);
-//void addeintrag(class sphere);
+//class Sphere geteintrag(int i);
+//void addeintrag(class Sphere);
 //int getanzahl();
 //protected:
 //int anzahl;
-//class sphere *liste;
+//class Sphere *liste;
 
-//std::set<class sphere> sphereset;
+//std::set<class Sphere> Sphereset;
 
 #include <cmath>
 #include <stdio.h>
-#include "quader.h"
+#include "Quader.h"
 
 
 struct myclass {
-	  bool operator() (class sphere i,class sphere j) { return (i.z<j.z);}
+	  bool operator() (class Sphere i,class Sphere j) { return (i.getZ()<j.getZ());}
 } myobject;
 
-ssaeule::ssaeule(){
+Ssaeule::Ssaeule(){
 	anzahl = 0;	
-	std::vector<class sphere> Zahlen(0);
+	std::vector<class Sphere> Zahlen(0);
 //	printf("bla\n");
 	Zahlen.reserve(10000);
 //	Zahlen.resize(100000);
 //	printf("bli\n");
-//	std::set<class sphere> sphereset(0);
+//	std::set<class Sphere> Sphereset(0);
 }
 
-ssaeule::~ssaeule(){
+Ssaeule::~Ssaeule(){
 	Zahlen.~vector();
 }
 
-int ssaeule::getanzahl(){
+int Ssaeule::getanzahl(){
 	return anzahl;
 }
 
-void ssaeule::addeintrag(class sphere kugel){
-//	std::vector<class sphere>& Zahlen = new std::vector<class sphere> ;
+void Ssaeule::addeintrag(class Sphere kugel){
+//	std::vector<class Sphere>& Zahlen = new std::vector<class Sphere> ;
 	anzahl++;
-//	std::vector<class sphere> Zahlen(0);
-	//std::vector<class sphere>* Zahlen();
+//	std::vector<class Sphere> Zahlen(0);
+	//std::vector<class Sphere>* Zahlen();
 	if((anzahl%10000)==1)
 	{
 		Zahlen.reserve(anzahl+10000);
@@ -56,52 +56,52 @@ void ssaeule::addeintrag(class sphere kugel){
 		Zahlen[i]=Zahlen[i-1];
 	}
 	Zahlen[i]=kugel;
-//	class sphere ende;
+//	class Sphere ende;
 //	ende = Zahlen.at(anzahl-1);
 //	printf("akt: ");
 //	ende.show();
-//	sphereset.insert(kugel);
+//	Sphereset.insert(kugel);
 //	anzahl++;	
 }
 
-double ssaeule::dropsphere(class sphere kugel){
+double Ssaeule::dropSphere(class Sphere kugel){
 //	printf("bla\n");
-	kugel.z = collisiondetect(kugel);
+	kugel.setZ( collisiondetect(kugel) );
 //	printf("bla%f\n",kugel.z);
-	if(kugel.z<kugel.r)
-		kugel.z = kugel.r;
+	if(kugel.getZ()<kugel.getR())
+		kugel.setZ( kugel.getR() );
 	//printf("bla\n");
 	addeintrag(kugel);
 //	printf("bla\n");
-	return kugel.z;
+	return kugel.getZ();
 }
 
 
-class sphere ssaeule::geteintrag(int i){
-//	std::set<class sphere>::iterator iter;
-//	iter= sphereset.end();
+class Sphere Ssaeule::geteintrag(int i){
+//	std::set<class Sphere>::iterator iter;
+//	iter= Sphereset.end();
 //	--iter;
 //	return *iter;
 	return Zahlen.at(i);
 }
 
-double wdistance_xy(class sphere k1, class sphere k2)
+double wdistance_xy(class Sphere k1, class Sphere k2)
 {
-	return sqrt(pow((k1.x - k2.x),2) + pow((k1.y - k2.y),2));
+	return sqrt(pow((k1.getX() - k2.getX()),2) + pow((k1.getY() - k2.getY()),2));
 }
 
-double ssaeule::collisiondetect(class sphere kugel){
+double Ssaeule::collisiondetect(class Sphere kugel){
 	int i;
-	class sphere tmp;
+	class Sphere tmp;
 	double zz=0;
 //	printf("for %d: %f %f\n",anzahl,kugel.x,kugel.y);
 	for(i = anzahl - 1;i >= 0; i--)
 	{
 		tmp = Zahlen.at(i);
 //		printf("for %d: %f %f\n",i,tmp.x,tmp.y);
-		if(wdistance_xy(tmp,kugel)<(tmp.r+kugel.r)){
+		if(wdistance_xy(tmp,kugel)<(tmp.getR()+kugel.getR())){
 //			printf("bla\n");
-			zz = sqrt( pow(kugel.r+tmp.r,2) - pow(kugel.x-tmp.x,2) - pow(kugel.y-tmp.y,2)) + tmp.z;
+			zz = sqrt( pow(kugel.getR()+tmp.getR(),2) - pow(kugel.getX()-tmp.getX(),2) - pow(kugel.getY()-tmp.getY(),2)) + tmp.getZ();
 			i=0;
 		}
 	}
@@ -109,17 +109,17 @@ double ssaeule::collisiondetect(class sphere kugel){
 }
 
 
-subcubic::subcubic(){
+Subcubic::Subcubic(){
 	quantity = 0;	
-	std::vector<class sphere> Zahlen(0);
+	std::vector<class Sphere> Zahlen(0);
 //	printf("bla\n");
 	Zahlen.reserve(1000);
 //	Zahlen.resize(100000);
 //	printf("bli\n");
-//	std::set<class sphere> sphereset(0);
+//	std::set<class Sphere> Sphereset(0);
 }
 
-subcubic::~subcubic(){
+Subcubic::~Subcubic(){
 	Zahlen.~vector();
 }
 
@@ -127,11 +127,11 @@ subcubic::~subcubic(){
 	return anzahl;
 }*/
 
-/*void subcubic::addeintrag(class sphere kugel){
-//	std::vector<class sphere>& Zahlen = new std::vector<class sphere> ;
+/*void subcubic::addeintrag(class Sphere kugel){
+//	std::vector<class Sphere>& Zahlen = new std::vector<class Sphere> ;
 	anzahl++;
-//	std::vector<class sphere> Zahlen(0);
-	//std::vector<class sphere>* Zahlen();
+//	std::vector<class Sphere> Zahlen(0);
+	//std::vector<class Sphere>* Zahlen();
 	if((anzahl%10000)==1)
 	{
 		Zahlen.reserve(anzahl+10000);
@@ -149,17 +149,17 @@ subcubic::~subcubic(){
 		Zahlen[i]=Zahlen[i-1];
 	}
 	Zahlen[i]=kugel;
-//	class sphere ende;
+//	class Sphere ende;
 //	ende = Zahlen.at(anzahl-1);
 //	printf("akt: ");
 //	ende.show();
-//	sphereset.insert(kugel);
+//	Sphereset.insert(kugel);
 //	anzahl++;	
 }
 */
 
 /*
-double subcubic::dropsphere(class sphere kugel){
+double subcubic::dropSphere(class Sphere kugel){
 //	printf("bla\n");
 	kugel.z = collisiondetect(kugel);
 //	printf("bla%f\n",kugel.z);
@@ -173,9 +173,9 @@ double subcubic::dropsphere(class sphere kugel){
 */
 
 /*
-class sphere subcubic::geteintrag(int i){
-//	std::set<class sphere>::iterator iter;
-//	iter= sphereset.end();
+class Sphere subcubic::geteintrag(int i){
+//	std::set<class Sphere>::iterator iter;
+//	iter= Sphereset.end();
 //	--iter;
 //	return *iter;
 	return Zahlen.at(i);
@@ -184,9 +184,9 @@ class sphere subcubic::geteintrag(int i){
 
 
 /*
-double subcubic::collisiondetect(class sphere kugel){
+double subcubic::collisiondetect(class Sphere kugel){
 	int i;
-	class sphere tmp;
+	class Sphere tmp;
 	double zz=0;
 //	printf("for %d: %f %f\n",anzahl,kugel.x,kugel.y);
 	for(i = anzahl - 1;i >= 0; i--)
@@ -203,36 +203,36 @@ double subcubic::collisiondetect(class sphere kugel){
 }*/
 
 
-class sphere subcubic::getentry(int i){
-	class sphere bla(1,2,3,4);
+class Sphere Subcubic::getentry(int i){
+	class Sphere bla(1,2,3,4);
 	return bla;
 }
 
-int subcubic::get_quantity(){
+int Subcubic::get_quantity(){
 	return quantity;
 }
 
-bool subcubic::collisiondetect(class sphere kugel){
+bool Subcubic::collisiondetect(class Sphere kugel){
 	int i;
-	class sphere tmp;
+	class Sphere tmp;
 	double zz=0;
 //	printf("for %d: %f %f\n",anzahl,kugel.x,kugel.y);
 	for(i = quantity - 1;i >= 0; i--)
 	{
 		tmp = Zahlen.at(i);
 //		printf("for %d: %f %f\n",i,tmp.x,tmp.y);
-		if(wdistance_xy(tmp,kugel)<(tmp.r+kugel.r)){
+		if(wdistance_xy(tmp,kugel)<(tmp.getR()+kugel.getR())){
 //			printf("bla\n");
 			return true;
 		}
 	}
 	return false;
 }
-void subcubic::putsphere(class sphere kugel){
-//	std::vector<class sphere>& Zahlen = new std::vector<class sphere> ;
+void Subcubic::putSphere(class Sphere kugel){
+//	std::vector<class Sphere>& Zahlen = new std::vector<class Sphere> ;
 	quantity++;
-//	std::vector<class sphere> Zahlen(0);
-	//std::vector<class sphere>* Zahlen();
+//	std::vector<class Sphere> Zahlen(0);
+	//std::vector<class Sphere>* Zahlen();
 	if((quantity%1000)==1)
 	{
 		Zahlen.reserve(quantity+1000);
@@ -251,36 +251,36 @@ void subcubic::putsphere(class sphere kugel){
 	}
 	Zahlen[i]=kugel;
 }
-void subcubic::addentry(class sphere kugel){
+void Subcubic::addentry(class Sphere kugel){
 }
 
 
 //		quader(int x, int y);
-//		dropsphere(class sphere kugel);
+//		dropSphere(class Sphere kugel);
 //	protected:
-//		class sphere ** saeulen;
+//		class Sphere ** saeulen;
 
-int wquader::min(int a, int b){
+int Wquader::min(int a, int b){
 	if(a<b)
 		return a;
 	return b;
 }
 
-int wquader::max(int a, int b){
+int Wquader::max(int a, int b){
 	if(a>b)
 		return a;
 	return b;
 }
 
 
-int wquader::putsphere(class sphere kugel){
-	if((kugel.x>=xmax)or(kugel.y>=ymax)or(kugel.z>=zmax))
+int Wquader::putSphere(class Sphere kugel){
+	if((kugel.getX()>=xmax)or(kugel.getY()>=ymax)or(kugel.getZ()>=zmax))
 		return -1;
-	if((kugel.x<0)or(kugel.y<0)or(kugel.z<0))
+	if((kugel.getX()<0)or(kugel.getY()<0)or(kugel.getZ()<0))
 		return -1;
-	int x = int(kugel.x);
-	int y = int(kugel.y);
-	int z = int(kugel.z);
+	int x = int(kugel.getX());
+	int y = int(kugel.getY());
+	int z = int(kugel.getZ());
 	
 	if(cubics[x][y][z].collisiondetect(kugel))
 	{
@@ -294,7 +294,7 @@ int wquader::putsphere(class sphere kugel){
 			{
 				for(k=max(z-1,0);k<=min(z+1,zmax-1);k++)
 				{
-					cubics[i][j][k].putsphere(kugel);
+					cubics[i][j][k].putSphere(kugel);
 				}
 			}
 		}
@@ -303,14 +303,14 @@ int wquader::putsphere(class sphere kugel){
 	return 1;
 }
 
-double wquader::dropsphere(class sphere kugel){
-	if((kugel.x>=xmax)or(kugel.y>=ymax))
+double Wquader::dropSphere(class Sphere kugel){
+	if((kugel.getX()>=xmax)or(kugel.getY()>=ymax))
 		return -1;
-	if((kugel.x<0)or(kugel.y<0))
+	if((kugel.getX()<0)or(kugel.getY()<0))
 		return -1;
-	int x = int(kugel.x);
-	int y = int(kugel.y);
-	kugel.z = saeulen[int(kugel.x)][int(kugel.y)].dropsphere(kugel);
+	int x = int(kugel.getX());
+	int y = int(kugel.getY());
+	kugel.setZ( saeulen[int(kugel.getX())][int(kugel.getY())].dropSphere(kugel) );
 //	printf("bli\n");
 	if(x > 0){
 		saeulen[x-1][y].addeintrag(kugel);
@@ -333,34 +333,34 @@ double wquader::dropsphere(class sphere kugel){
 	quantity++;
 //	if(z<kugel.z)
 //		z = kugel.z;
-	return kugel.z;
+	return kugel.getZ();
 }
 
-wquader::wquader(int x, int y, int z)
+Wquader::Wquader(int x, int y, int z)
 {
 	xmax = x;
 	ymax = y;
 	zmax = z;
 	quantity = 0;
 //	printf("ble\n");
-	saeulen = new ssaeule* [int(xmax+0.5)];
+	saeulen = new Ssaeule* [int(xmax+0.5)];
 	int i,j;
 	for(i=0;i<xmax;i++)
-		saeulen[i] = new ssaeule[int(ymax+0.5)];
+		saeulen[i] = new Ssaeule[int(ymax+0.5)];
 
 //	printf("blu\n");
-	cubics = new subcubic** [int(xmax+0.5)];
+	cubics = new Subcubic** [int(xmax+0.5)];
 	for(i=0;i<xmax;i++)
 	{
-		cubics[i] = new subcubic * [int(ymax+0.5)];
+		cubics[i] = new Subcubic * [int(ymax+0.5)];
 		for(j=0;j<ymax;j++)
-			cubics[i][j] = new subcubic [int(zmax+0.5)];
+			cubics[i][j] = new Subcubic [int(zmax+0.5)];
 	}
 
 //	printf("bla\n");
 }
 
-wquader::~wquader(){
+Wquader::~Wquader(){
 	int i,j;
 	for(i=0;i<xmax;i++)
 		delete[] saeulen[i];
@@ -369,7 +369,7 @@ wquader::~wquader(){
 
 	for(i=0;i<xmax;i++)
 	{
-		cubics[i] = new subcubic * [int(ymax+0.5)];
+		cubics[i] = new Subcubic * [int(ymax+0.5)];
 		for(j=0;j<ymax;j++)
 			delete[] cubics [i][j];
 		delete[] cubics[i];

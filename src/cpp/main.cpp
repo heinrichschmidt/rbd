@@ -4,8 +4,8 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include <math.h>
-#include "sphere.h"
-#include "quader.h"
+#include "Sphere.h"
+#include "Quader.h"
 
 
 #define SmallToBigRatioDenominator 10000
@@ -20,14 +20,14 @@ double frand(void)
 char helptext[] ="\
 -h         this helptext.\n\
 -f number  desired filling factor\n\
--n number  number of desired spheres\n\
+-n number  number of desired Spheres\n\
 -s         use random sequential packing\n\
 -b         use random-ballistic-deposition\n\
 -x number  x-boundary\n\
 -y number  y-boundary\n\
 -z number  z-max boundary\n\
 -p number  radius ratio for bidisperse\n\
--q number  ratio small to big sphere in bidisperse case\n\
+-q number  ratio small to big Sphere in bidisperse case\n\
 -g	   gaussian distribution with sigma=3 or 1/3 and maximum at 1\n\
 -c         power law distribution with r from 0 to 3.5\n\
 "; /* remaining charakteres: adeijklmortuvw*/
@@ -128,8 +128,8 @@ int main(int argc, const char *argv[])
 
 	if(randomBallisticDeposition)
 	{
-		class sphere k2;
-		k2.r=0.5;
+		class Sphere k2;
+		k2.setR(0.5);
 		
 		//initialize ranodm seed
 		struct timeval tv;
@@ -139,7 +139,7 @@ int main(int argc, const char *argv[])
 		double xmax = xborder;
 		double ymax = yborder;
 //		fprintf(stderr,"%lf,%lf",xmax,ymax);
-		class squader test(xmax,ymax,zborder);
+		class Squader cuboid(xmax,ymax,zborder);
 		int i;
 
 
@@ -156,7 +156,7 @@ int main(int argc, const char *argv[])
 					if(gauss(tmpr,1)>((rand()%10000)/10000.0))
 					{
 						tru = false;
-						k2.r = tmpr;
+						k2.setR( tmpr );
 					}
 				}
 			}else if(powerlaw)
@@ -172,51 +172,51 @@ int main(int argc, const char *argv[])
 					if( ( ( ( alpha - 1 )/( xmin ) * pow( tmpr / xmin, -alpha )  ) > ((rand()%10000) / 10000.0) ) and ( tmpr > xmin ) ) 
 					{
 						tru = false;
-						k2.r = tmpr;
+						k2.setR( tmpr );
 					}
 				}
 			}else
 			{
-				k2.r = ((rand()%(sumND))<smallToBigRatio) ? (0.5*radiusRatio) : 0.5;
+				k2.setR( ((rand()%(sumND))<smallToBigRatio) ? (0.5*radiusRatio) : 0.5 );
 			}
-			k2.x = frand()*(xmax - 2 * k2.r)+k2.r;
-			k2.y = frand()*(ymax - 2 * k2.r)+k2.r;
+			k2.setX( frand()*(xmax - 2 * k2.getR() )+k2.getR() );
+			k2.setY( frand()*(ymax - 2 * k2.getR() )+k2.getR() );
 			
-			k2.z = test.dropsphere(k2);
-			if(k2.z>0)
+			k2.setZ( cuboid.dropSphere(k2) );
+			if(k2.getZ()>0)
 				k2.show();
 		}
-		double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
-		double volumen = test.get_volume();
-		double ff = test.get_fillfactor();
+		double vkugeln = cuboid.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
+		double volumen = cuboid.get_volume();
+		double ff = cuboid.get_fillfactor();
 		fprintf(stderr,"füllfaktor: %f\n",ff);
 
 	}
 	else if(randomSequentialPacking)
 	{
 
-		class sphere k2;
-		k2.r=0.5;
+		class Sphere k2;
+		k2.setR(0.5);
 
 		/* initialize random seed */
 		srand ( time(NULL) );
 
-		class wquader test(xborder, yborder, zborder);
+		class Wquader cuboid(xborder, yborder, zborder);
 		
-		double volumen = test.get_volume();
+		double volumen = cuboid.get_volume();
 		double ff = 0;
 		while(ff<fillf)
 		{
 			//		printf("%d\n",i);
-			k2.x = (frand()*(xborder-1)+0.5);
-			k2.y = (frand()*(yborder-1)+0.5);
-			k2.z = (frand()*(zborder-1)+0.5);
+			k2.setX( (frand()*(xborder-1)+0.5) );
+			k2.setY( (frand()*(yborder-1)+0.5) );
+			k2.setZ( (frand()*(zborder-1)+0.5) );
 			//		k2.x = ( (rand()%100000)/10000 * 3.9 + 1 );
 			//		k2.y = ( (rand()%100000)/10000 * 3.9 + 1 );
 			//		fprintf(stderr,"bli (%f, %f, %f)\n",k2.x,k2.y,k2.z);
-			if(test.putsphere(k2)>0){
+			if(cuboid.putSphere(k2)>0){
 				k2.show();
-				double vkugeln = test.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
+				double vkugeln = cuboid.get_quantity()*4*3.14159*0.5*0.5*0.5/3;
 				ff = vkugeln/volumen;
 			}
 		}
